@@ -20,13 +20,13 @@ Calcula a média aritmética de um vetor de valores `f64`.
 
 ---
 
-### `calcular_inclinacao_pib(dados: &[RegistroPib]) -> f64`
+### `calcular_inclinacao(dados: &[RegistroPib]) -> f64`
 
 Aplica a fórmula de regressão linear para encontrar a **inclinação (a)** da reta
 
 ---
 
-### `calcular_intercepto_pib(dados: &[RegistroPib], inclinacao: f64) -> f64`
+### `calcular_intercepto(dados: &[RegistroPib], inclinacao: f64) -> f64`
 
 Calcula o **intercepto (b)** da reta com base na média dos anos e dos valores de PIB
 
@@ -38,7 +38,7 @@ Utiliza a equação da reta para prever o PIB de um determinado ano
 
 ---
 
-### `calcular_r_quadrado_pib(...) -> f64`
+### `calcular_r_quadrado(...) -> f64`
 
 Calcula o **coeficiente de determinação (R²)**, que mede a qualidade da regressão:
 
