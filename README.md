@@ -47,7 +47,7 @@ Calcula o **coeficiente de determinação (R²)**, que mede a qualidade da regre
 
 ---
 
-### `calcular_erro_quadratico_medio_pib(...) -> f64`
+### `calcular_erro_quadratico_medio(...) -> f64`
 
 Calcula o **Erro Quadrático Médio (MSE)** entre os valores reais e os previstos, útil para avaliar a precisão.
 
