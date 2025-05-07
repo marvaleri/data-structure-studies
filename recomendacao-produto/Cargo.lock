@@ -3,7 +3,7 @@
 version = 4
 
 [[package]]
-name = "recomendacao-grafo"
+name = "recomendacao-produto"
 version = "0.1.0"
 dependencies = [
  "unicode-normalization",

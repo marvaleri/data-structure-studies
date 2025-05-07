@@ -73,3 +73,72 @@ fn main() {
     }
     
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_preprocess_remove_acentuacao() {
+        let input = "Boné Adidas";
+        let expected = "bone adidas";
+        assert_eq!(preprocess(input), expected);
+    }
+
+    #[test]
+    fn test_preprocess_mantem_alfanumerico() {
+        let input = "Xbox 360";
+        let expected = "xbox 360";
+        assert_eq!(preprocess(input), expected);
+    }
+
+    #[test]
+    fn test_busca_encontra_produto_por_nome() {
+        let mut product_table: HashMap<u32, Product> = HashMap::new();
+        product_table.insert(1, Product {
+            id: 1,
+            name: "Luz 360 lumenz".to_string(),
+            category: "Eletrônicos".to_string(),
+        });
+
+        let term = "Luz 360 lumenz";
+        let normalized = preprocess(term);
+        let results: Vec<&Product> = product_table
+            .values()
+            .filter(|p| preprocess(&p.name).contains(&normalized))
+            .collect();
+
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].id, 1);
+    }
+
+    #[test]
+    fn test_busca_cache_funciona() {
+        let mut cache: HashMap<String, Vec<u32>> = HashMap::new();
+        let key = "machado".to_string();
+        let ids = vec![1000];
+        cache.insert(key.clone(), ids.clone());
+
+        assert!(cache.contains_key(&key));
+        assert_eq!(cache.get(&key), Some(&ids));
+    }
+
+    #[test]
+    fn test_busca_retorna_vazia_ou_nao_encontrada() {
+        let mut product_table: HashMap<u32, Product> = HashMap::new();
+        product_table.insert(1, Product {
+            id: 1,
+            name: "PlayStation 5".to_string(),
+            category: "Eletrônicos".to_string(),
+        });
+
+        let term = "XBox One";
+        let normalized = preprocess(term);
+        let results: Vec<&Product> = product_table
+            .values()
+            .filter(|p| preprocess(&p.name).contains(&normalized))
+            .collect();
+
+        assert!(results.is_empty());
+    }
+}
