@@ -3,7 +3,7 @@
 version = 4
 
 [[package]]
-name = "recomendacao-produto"
+name = "search"
 version = "0.1.0"
 dependencies = [
  "unicode-normalization",

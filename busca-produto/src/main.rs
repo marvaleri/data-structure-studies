@@ -7,8 +7,7 @@ use std::io::{self, Write};
 use std::time::Instant;
 
 
-
-fn preprocess(text: &str) -> String {
+pub fn preprocess(text: &str) -> String {
     text.nfkd() // Normaliza acentos (ex: "á" -> "a" + "~")
         .filter(|c| c.is_ascii() && c.is_alphanumeric() || *c == ' ')
         .collect::<String>()
@@ -75,6 +74,7 @@ fn main() {
 }
 
 #[cfg(test)]
+
 mod tests {
     use super::*;
 
@@ -96,17 +96,17 @@ mod tests {
     fn test_busca_encontra_produto_por_nome() {
         let mut product_table: HashMap<u32, Product> = HashMap::new();
         product_table.insert(1, Product {
-            id: 1,
-            name: "Luz 360 lumenz".to_string(),
-            category: "Eletrônicos".to_string(),
-        });
+        id: 1,
+        name: "Luz 360 lumenz".to_string(),
+        category: "Eletrônicos".to_string(),
+    });
 
-        let term = "Luz 360 lumenz";
-        let normalized = preprocess(term);
-        let results: Vec<&Product> = product_table
-            .values()
-            .filter(|p| preprocess(&p.name).contains(&normalized))
-            .collect();
+    let term = "Luz 360 lumenz";
+    let normalized = preprocess(term);
+    let results: Vec<&Product> = product_table
+        .values()
+        .filter(|p| preprocess(&p.name).contains(&normalized))
+        .collect();
 
         assert_eq!(results.len(), 1);
         assert_eq!(results[0].id, 1);
@@ -124,20 +124,22 @@ mod tests {
     }
 
     #[test]
+
     fn test_busca_retorna_vazia_ou_nao_encontrada() {
         let mut product_table: HashMap<u32, Product> = HashMap::new();
+
         product_table.insert(1, Product {
             id: 1,
             name: "PlayStation 5".to_string(),
             category: "Eletrônicos".to_string(),
-        });
+    });
 
-        let term = "XBox One";
-        let normalized = preprocess(term);
-        let results: Vec<&Product> = product_table
-            .values()
-            .filter(|p| preprocess(&p.name).contains(&normalized))
-            .collect();
+    let term = "XBox One";
+    let normalized = preprocess(term);
+    let results: Vec<&Product> = product_table
+        .values()
+        .filter(|p| preprocess(&p.name).contains(&normalized))
+        .collect();
 
         assert!(results.is_empty());
     }
